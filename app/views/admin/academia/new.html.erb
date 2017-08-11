@@ -1,0 +1,6 @@
+<% content_for :sitemap do %>
+  <a href="<%= admin_academia_path %>"><%= t("admin.menu.academia")%></a> <i class="fa fa-angle-right"></i> <span class="current"><%= t("common.create")%></span>
+<% end %>
+<h1>新建内容</h1>
+
+<%= render 'form' %>

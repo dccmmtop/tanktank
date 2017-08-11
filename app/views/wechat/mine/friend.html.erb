@@ -1,0 +1,58 @@
+<% title_tag current_user.fullname %>
+<div class="row">
+  <div class="col-xs-12">
+   <div class="panel profile panel-default">
+    <div class="panel-heading">相识</div> 
+    <div class="panel-body">
+      <p>你与<%= User.find(@friendship.user_id).name if @friendship %> 在<%= @fr.started_at %> <br />
+      相识于 <%= @fr.content %></p>
+      <div class="row">
+        <div class="col-md-6 col-xs-6">
+          <div class="media">
+            <div class="avatar media-left">
+              <div class='image'><%= user_avatar_tag(current_user, :sm, link: false) %></div>
+            </div>
+            <div class="media-body">
+              <div class="item">
+                <%= current_user.name %>                
+              </div>
+            </div>
+            <p>毕业院校：<br /><%= current_user.university%><br/>
+            学位:<br/><%= current_user.degree%> <br/>
+            专业:<br/><%= current_user.major%></p>
+            <% if !current_user.is_student %>
+              <p>目前就职于：<br/><%= current_user.company %><br/>
+                担任:<br/><%= current_user.title%></p>
+            <% end %>
+            <%= link_to "完善我的信息", edit_wechat_user_path(current_user) %>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-6">
+          <div class="media">
+            <div class="avatar media-left">
+              <div class='image'><%= user_avatar_tag(@user, :sm, link: false) %></div>
+            </div>
+            <div class="media-body">
+              <div class="item">
+                <%= @user.name %>
+              </div>
+            </div>
+            <p>毕业院校：<br /><%= @user.university%><br/>
+            学位:<br/><%= @user.degree%> <br/>
+            专业:<br/><%= @user.major%></p>
+            <% if !@user.is_student %>
+              <p>目前就职于：<br/><%= @user.company %><br/>
+                担任:<br/><%= @user.title%></p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+          <hr />
+          <p>长按识别二维码，关注并置顶相识更多专业人士</p>
+          <%= image_tag("qrcode_for_gh_646d6089d139_258.jpg")%>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

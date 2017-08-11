@@ -1,0 +1,27 @@
+<%= render 'form' %>
+
+<hr/>
+<p>相关审核
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td>审核状态</td>
+    <td>审核批注</td>
+    <td>审核日期</td>
+  </tr>
+  <% @audits.each do |item| %>
+  <tr>
+    <td>
+    	<% if item.status == Passage.audit_statuses[:non_audit] %>
+        待审核
+      <% elsif item.status == Passage.audit_statuses[:audit_success]%>
+        审核通过
+      <% elsif item.status == Passage.audit_statuses[:audit_failure] %>
+        审核失败
+      <% end %> 
+    </td>
+    <td><%= item.content %></td>
+    <td><%= item.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+  </tr>
+<% end %>
+</table>
+</p>

@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default userinfo">
+    <div class="panel panel-heading">
+     <%= @user.display_name %>的朋友
+      <div class="pull-right">
+        <%= link_to '相识', wechat_acquaint_path %></div>
+    </div>
+    <div class="panel panel-body" id="items">
+      <%= random_tips %>
+      <% @friendships.group_by(&:year).each do |year, frs| %>
+      <h3><%= year %>年</h3>
+      <% frs.each_with_index do |fr, i| %>
+      <% previous_fr = frs[i-1] unless i ==0 %>      
+        <div class="topic media topic-<%= fr.id %>">
+          <div class="row">
+            <div class="col-xs-3" style="padding:0">    
+            <% if previous_fr %>
+              <% if previous_fr.created_at.strftime("%m%d") != fr.created_at.strftime("%m%d") %>
+              <h3 style="display:inline;"><%= fr.created_at.strftime("%d") %></h3><h5 style="display:inline;"><%= fr.created_at.strftime("%_m月") %></h5>
+              <% end %>
+            <% else %>
+              <h3 style="display:inline;"><%= fr.created_at.strftime("%d") %></h3><h5 style="display:inline;"><%= fr.created_at.strftime("%_m月") %></h5>
+            <% end %>
+            </div>  
+            <div class="col-xs-9">
+              <div class="avatar media-left">
+                <div class='image'>
+                  <%= user_avatar_tag(User.find(fr.friend_id), :sm, link: false) %>
+                </div>
+              </div>   
+              <div class="infos media-body">
+                <div class="title media-heading">
+                  <%= link_to User.find(fr.friend_id).display_name, wechat_user_path(User.find(fr.friend_id))  %>
+                </div>
+                <div class="info">
+                  <% if fr.friend_request.nil? %>
+                    <p>重逢于产学联</p>
+                    相识于<%= fr.event %>
+                  <% else %>
+                    <% if fr.friend_request.started_at.include?(fr.created_at.strftime("%y-%m-%d")) %>
+                    相识于<%= fr.event  if fr.friend_request %>
+                    <%= render :partial =>'wechat/friendships/manage_request', :locals => { :fr => fr }  %>
+                    <% else %>
+                    <p>重逢于产学联</p>
+                    相识于<%= fr.event %>•<%= fr.friend_request.started_at if fr.friend_request %>
+                    <%= render :partial =>'wechat/friendships/manage_request', :locals => { :fr => fr } %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

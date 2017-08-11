@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= date %> <%= weekday(Date.parse(date).wday)%>
+  </div>
+</div>
+<% topics.each_with_index do |topic, i| %>
+<div class="row wechat-recommendation">
+  <div class="col-xs-4">
+  	<% if current_user %>
+        <%= link_to image_tag(show_image(topic), class:'img-responsive', width: '160'), wechat_topic_path(topic, uid: current_user.id) %>
+      <% else %>
+        <%= link_to image_tag(show_image(topic), class:'img-responsive', width: '160'), wechat_topic_path(topic) %>
+      <% end %></div>
+  <div class="col-xs-8 content">
+    <div class="row">
+      <div class="title">
+      <% if current_user %>
+        <%= link_to(truncate(topic.title, length: 30), wechat_topic_path(topic, uid: current_user.id), title: topic.title, target: "_blank")%>
+      <% else %>
+        <%= link_to(truncate(topic.title, length: 30), wechat_topic_path(topic), title: topic.title, target: "_blank") %>
+      <% end %></div>
+    </div>
+    <div class="row">
+    <div class="summary">
+      <%= truncate(topic.summary, length: 20) %>
+      <p><% if topic.tags.present? %>
+            <i class="fa fa-tag fa-lg"></i>
+            <% topic.tags.split(",").each do |tag| %>
+              <%= link_to tag, search_path(:q=> tag) %>
+            <% end %>
+          <% end %></p>
+    </div></div>
+  </div>
+</div>
+<% end %>

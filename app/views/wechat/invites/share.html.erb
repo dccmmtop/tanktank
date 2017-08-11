@@ -1,0 +1,17 @@
+ <div class="panel panel-default">
+  <div class="panel-heading">邀请</div>
+  <div class="panel-body">
+  <% if  params[:role]=='create_user'%>
+    扫描下方二维码,或者通过微信分享链接给好友
+
+  <% elsif params[:role]=='legal_user'%>
+   <div><%= User.find(paramas[:uid]).name%>邀请你加入<%= Node.find(paramas[:nid])%>私密圈 </div>
+   <div>该邀请于<%= paramas[:deadline]%>失效</div>
+   <div><%= link_to "加入",{controller: 'nodes',action:'focus',id:paramas[:nid],:apply=>'false'}%></div>
+  <% elsif params[:role]=='illgal_user'%>
+   没有这个页面
+  <% elsif params[:role]=='invalid'%>
+  该邀请已失效
+  <% end %>
+  </div>  
+</div>

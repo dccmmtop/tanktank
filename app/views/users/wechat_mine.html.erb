@@ -1,0 +1,15 @@
+<% title_tag current_user.fullname %>
+<div class="row">
+	<div class="col-md-4">
+  <div class="panel profile panel-default">
+    <div class="panel-body">
+      <div class="media">
+        <div class="avatar media-left">
+          <div class='image'><%= user_avatar_tag(current_user, :lg, link: false) %></div>
+          <div class="level"><%= render_user_level_tag(current_user) %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

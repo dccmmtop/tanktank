@@ -1,0 +1,31 @@
+<div id="main-nav-menu">
+  <ul class="nav navbar-nav">
+    <li class="nav-recommendations">
+      <%= link_to(t("menu.recommendation"), main_app.recommendations_path) %>
+    </li>
+    <li class="nav-topics">
+      <%= link_to(t("menu.topics"), Setting.has_module?(:home) ? main_app.topics_path : main_app.root_path) %>
+    </li>
+    <li class="nav-organisations">
+      <%= link_to(t("menu.organisations"), main_app.organisations_path) %>
+    </li>
+    <li class="nav-academia">
+      <%= link_to(t("menu.academia"), main_app.academia_path) %>
+    </li>
+    <li class="nav-events">
+      <%= link_to(t("menu.events"), Setting.has_module?(:event) ? main_app.events_path : main_app.root_path) %>
+    </li>
+    <% if !mobile? %>
+      <% if Setting.has_module?(:wiki) %>
+        <li class="nav-pages"><%= link_to(t("menu.wiki"), main_app.pages_path) %></li>
+      <% end %>
+      <% if Setting.has_module?(:site) %>
+        <li class="nav-sites"><%= link_to(t("menu.sites"), main_app.sites_path) %></li>
+      <% end %>
+    <% end %>
+    <%= raw Setting.navbar_html %>
+    <script type="text/javascript">
+    $('.navbar-nav .nav-<%= controller_name %>').addClass("active");
+    </script>
+  </ul>
+</div>

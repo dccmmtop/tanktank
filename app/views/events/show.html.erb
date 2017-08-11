@@ -1,0 +1,70 @@
+<% title_tag @event.name %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topic-detail panel panel-default">
+      <div class="panel-heading media clearfix">
+  <div class="media-body">
+    <h1 class="media-heading">
+      <%= @event.name %>
+    </h1>
+    <% content_for :header do %>
+      <div class="navbar-nav">
+        <div class="navbar-topic-title">
+          <a href="#" class="topic-title pull-left" data-type="top">
+            <h1><%= @event.name %></h1>
+          </a>
+        </div>
+      </div>
+    <% end %>
+    <div class="info">
+      <%= user_name_tag(@event.user, data: { author: true }) %>
+       ·
+      <%= raw t("common.created_at", time: timeago(@event.created_at))%>
+      
+    </div>
+  </div>
+  <div class="avatar media-right">
+    <%= user_avatar_tag(@event.user, :md) %>
+  </div>
+</div>
+  <div class="panel-body markdown">
+    <%= raw Setting.before_topic_html %>
+    <p>活动时间:<%= @event.date %></p>
+    <p>活动地点:<%= @event.address %></p>
+    <p>联系信息:<%= @event.contact %></p>
+    <article>
+      <%= raw @event.description_html %>
+    </article>
+    <%= raw Setting.after_topic_html %>
+  </div
+    <div class="panel-footer clearfix">
+      <span class="pull-right opts">
+  <% if owner?(@topic) or admin? %>
+  
+  <%= link_to "", edit_event_path(@event), class: "fa fa-pencil", title: "修改" %>
+      
+      <%= link_to "", event_path(@event.id), method: :delete, remote: true, 'data-confirm': t("common.confirm_delete"), class: "fa fa-trash", title: "删除本帖" %>
+      
+    <% end %>
+  </span>
+      </div>
+    </div>
+    <div class="sidebar col-md-3">
+    <%= render 'shared/qr' %>
+  </div>
+
+ 
+</div>
+
+<% if !mobile? %>
+  <div class="sidebar hidden-mobile col-md-3">
+    
+  </div>
+<% else %>
+  <div class="move-page-buttons">
+    <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="bottom"><i class="fa fa-arrow-down"></i></a>
+  </div>
+<% end %>
+</div>

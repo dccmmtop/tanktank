@@ -1,0 +1,26 @@
+FactoryGirl.define do
+  factory :organisation do
+    name "MyString"
+    full_name "MyString"
+    industry "MyString"
+    area "MyString"
+    market_value "MyString"
+    price_to_earning "MyString"
+    main_product "MyString"
+    email "MyString"
+    concept "MyString"
+    city "MyString"
+    public_trade_type "MyString"
+    public_trade_place "MyString"
+    website "MyString"
+    registration_address "MyString"
+    legal_representative "MyString"
+    chairman "MyString"
+    brief "MyString"
+    fax "MyString"
+    telephone "MyString"
+    office_address "MyString"
+    scope "MyString"
+    ticker "MyString"
+  end
+end

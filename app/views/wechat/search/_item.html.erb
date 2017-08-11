@@ -1,0 +1,16 @@
+<div class="topic media">
+        <div class="infos media-body" >
+          <div class="title media-heading">
+            <% if current_user %>
+              <%= link_to(truncate(item.title, length: 100), wechat_topic_path(Topic.find_by(title: item.title), uid: current_user.id), title: item.title) %>
+            <% else %>
+              <%= link_to(truncate(item.title, length: 100), wechat_topic_path(Topic.find_by(title: item.title)), title: item.title) %>
+            <% end %>
+          </div>
+          <div class="info">
+            <%= render_node_name(Topic.find_by(title: item.title).node_name,Topic.find_by(title: item.title).node_id) %>
+            •
+            <span class="date" title="Last Updated At"><%= Topic.find_by(title: item.title).created_at.to_date %></span>
+          </div>
+        </div>
+      </div>

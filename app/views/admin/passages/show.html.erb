@@ -1,0 +1,30 @@
+
+<div class="toolbar">
+  <%= link_to '修改', edit_admin_passage_path(@passage), class: "btn btn-sm btn-success" %>
+  <%= link_to '返回', admin_passages_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div id="passage">
+    <p>
+    <b>Title:</b>
+    <%= @passage.title %>
+  </p>
+    <p>
+    <b>Description:</b>
+    <%= @passage.description %>
+  </p>
+    <p>
+    <b>Help:</b>
+    <%= @passage.help %>
+  </p>
+    <p>
+    <b>Status:</b>
+    <%= @passage.status %>
+  </p>
+    <p>
+    <b>User:</b>
+    <%= @passage.user_id %>
+  </p>
+  </div>
+
+

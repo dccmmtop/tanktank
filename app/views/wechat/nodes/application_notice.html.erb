@@ -1,0 +1,31 @@
+<div class="panel panel-default" style="margin-top:10px">
+  <div class="panel-heading">
+    <%count=@application.size%>
+    收到<%= count%>条申请
+  </div>
+  <div class="panel-body">
+    <% if count>0%>
+    <% @application.each do |application| %>
+    <% if Node.find_by(id: application[:node_id]).present? &&  User.find_by(id:application[:user_id]).present? %>
+    <div class="media">
+      <div class="media-left"><%= user_avatar_tag(User.find_by(id:application[:user_id]), :md, link: false) %></div>
+      <div class="media-body">
+        <div class="pull-right">
+          <%= link_to "拒绝" ,{:controller=>'nodes',:action=>'deal_apply',:result=>"no",:user_id=>application[:user_id],:node_id=>application[:node_id]},class:"btn btn-xs btn-info"%>
+          <%= link_to "同意" ,{:controller=>'nodes',:action=>'deal_apply',:result=>"ok",:user_id=>application[:user_id],:node_id=>application[:node_id]},class:"btn btn-xs btn-primary"%>
+        </div>
+        <div class="media-header "><%= User.find_by(id:application[:user_id]).name%> 申请加入 <%= Node.find_by(id: application[:node_id]).name%></div>
+        <div class="media-info"><sapn class="time"><%= application.created_at.strftime('%Y-%m-%d')%> </sapn></div>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <% end %>
+  </div>
+  <br>
+</div>
+<style type="text/css">
+  .time{
+    color: gray;
+  }
+</style>

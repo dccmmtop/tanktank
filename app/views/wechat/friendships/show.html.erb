@@ -1,0 +1,56 @@
+<% title_tag @user.fullname %>
+<div class="row">
+  <div class="col-xs-12">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      我的朋友
+    </div> 
+    <div class="panel-body">
+      <div class="media">
+        <div class="avatar media-left">
+          <div class='image'><%= user_avatar_tag(@user, :sm, link: false) %></div>
+        </div>
+        <div class="media-body">
+          <div class="item">
+            <%= @user.name %>
+          </div>
+        </div>
+        <p>
+          毕业院校：<%= @user.university%><br/>
+          学位:<%= @user.degree%> <br/>
+          专业:<%= @user.major%></p>
+          <% if !@user.is_student %>
+            <p>目前就职于：<%= @user.company %><br/>
+              担任:<%= @user.title%></p>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        特长
+      </div> 
+      <div class="panel-body">
+        <div class="media">
+          <% if @user.speciality && @user.speciality.include?(',') %>
+          <% @user.speciality.split(",").each do |s| %>
+          <span class="label label-info"><%= s %></span>
+          <% end %>
+          <%end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        求助
+      </div> 
+      <div class="panel-body">
+        <div class="media">
+          <%= render partial:'/wechat/passages/passage', collection: @passages, :as=> :passage%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

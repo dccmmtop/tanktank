@@ -1,0 +1,39 @@
+
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.event")%></span>
+<% end %>
+<div class="toolbar">
+  <form class="form-inline" action="<%= admin_events_path %>">
+    <div class="form-group">
+      <input type="text" name="q" class="form-control" value="<%= params[:q] %>" placeholder="活动名称" />
+    </div>
+    <button class="btn btn-default">搜索</button>
+  </form>
+</div>
+<div class="toolbar">
+  <%= link_to '新建活动', new_admin_event_path, class: "btn btn-default" %>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>活动名称</td>
+    <td>举办时间</td>
+    <td>地址</td>
+    <td></td>
+  </tr>
+
+<% @events.each do |item| %>
+  <tr>
+    <td class="first"><%= item.id %></td>
+    <td><%= item.name %></td>
+    <td><%= item.date %></td>
+    <td><%= item.address %></td>
+    <td><%= link_to '', edit_admin_event_path(item), class: "fa fa-pencil" %>
+    <%= link_to '', admin_event_path(item), 'data-confirm' => 'Are you sure?' , method: :delete, class: "fa fa-trash" %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @events %>
+
+

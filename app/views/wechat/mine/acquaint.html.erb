@@ -1,0 +1,41 @@
+<% title_tag current_user.fullname %>
+<div class="row">
+  <div class="col-xs-12">
+
+
+  <div class="panel panel-default" id="user_github_repos">
+    <div class="panel-heading">相识</div> 
+      <div class="panel-body">
+        <form action="/wechat/send_friend_request" method="get">
+        <div class="form-group">
+          <input type="hidden" id="uid" name="uid" value="<%= current_user.id %>" />
+          <input type="text" id="textEvent" class="form-control" name="event" placeholder="相识 地点／主题／缘由" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="date" placeholder="相识日期" value="<%= Date.today%>" />
+        </div>
+        <div class="form-group" >
+          <label>
+          <input type="checkbox" name="multiple" />所有点击或扫码的用户相互成为朋友，请慎用</label>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary btn-block" value="生成分享链接" />
+        </div>
+        </form>
+      </div>
+    </div>
+
+  <div class="panel panel-default" id="user_friend_request">
+    <div class="panel-heading">
+      我的请求
+    </div>
+    <div class="panel-body">
+      <%= render :partial => "wechat/friend_requests/friend_request", :collection => @frs, :as => :friend_request %>
+    </div>
+    <div class="panel-footer clearfix">
+      <div class="pull-right">
+        <%= link_to '更多', wechat_friend_requests_path %></div>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.academium")%></span>
+<% end %>
+<div class="toolbar">
+  <form class="form-inline" action="<%= admin_academia_path %>">
+    <div class="form-group">
+      <input type="text" name="q" class="form-control" value="<%= params[:q] %>" placeholder="机构名称" />
+    </div>
+    <button class="btn btn-default">搜索</button>
+  </form>
+</div>
+<div class="toolbar">
+  <%= link_to '新建机构', new_admin_academium_path, class: "btn btn-default" %>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>机构名称</td>
+    <td>所在地</td>
+    <td>联系地址</td>
+    <td></td>
+  </tr>
+
+<% @academia.each do |item| %>
+  <tr>
+    <td class="first"><%= item.id %></td>
+    <td><%= item.name %></td>
+    <td><%= item.local %></td>
+    <td><%= item.address %></td>
+    <td><%= link_to '', edit_admin_academium_path(item), class: "fa fa-pencil" %>
+    <%= link_to '', admin_academium_path(item), 'data-confirm' => 'Are you sure?' , method: :delete, class: "fa fa-trash" %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @academia %>
+<div class="toolbar">
+  <hr />
+  <%= form_tag import_admin_academia_path, multipart: true do %>
+    <%= file_field_tag :file %>
+      <%= submit_tag "Import" %>
+<% end %>
+</div>
+

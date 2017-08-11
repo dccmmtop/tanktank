@@ -1,0 +1,17 @@
+<% title_tag(@page_title || t('menu.events')) %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topics panel panel-default">
+      <div class="panel-body item-list">
+        <%= render partial: '/events/event', collection: @events, cached: -> (event) { [event, 'normal'] } %>
+      </div>
+      <div class="panel-footer clearfix">
+        <%= will_paginate @events %>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar col-md-3">
+    <%= render 'shared/qr' %>
+  </div>
+</div>

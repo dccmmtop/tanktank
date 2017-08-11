@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default" id="user_github_repos">
+    <div class="panel panel-heading">
+      相助
+      <div class="pull-right">
+        <%= link_to "求助", new_wechat_passage_path %></div>
+    </div>
+    <div class="panel-body" id="items">
+      <%= notice_message %>
+      <%= render @passages %>
+      <% if @passages.next_page %>
+      <div id="infinite-scrolling" class="pull-right">
+        <%= will_paginate @passages %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

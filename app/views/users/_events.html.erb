@@ -1,0 +1,7 @@
+<table class="node-topics table">
+  <% events.each do |event| %>
+    <tr class="event">
+      <td class="title"><%= link_to(event.name, event_path(event)) %>  <em><%= timeago(event.created_at) %></td>
+    </tr>
+  <% end %>
+</table>

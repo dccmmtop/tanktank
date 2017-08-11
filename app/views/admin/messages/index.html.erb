@@ -1,0 +1,29 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.message") %></span>
+<% end %>
+
+<!--<div class="toolbar">
+  <%= link_to "今日推荐推送", today_action_admin_messages_path %>
+</div>-->
+
+<div id="messages">
+  <table class="table table-bordered table-striped table-condensed">
+    <tr class="head">
+      <td>发送人</td>
+      <td>接收人</td>
+      <td>标题</td>
+      <td>创建时间</td>
+      <td class="opts"></td>
+    </tr>
+    <% @messages.each do |item| %>
+    <tr class="<%= cycle("","even") %>">
+      <td><%= User.find(item.sender).name %></td>
+      <td><%= User.find(item.receiver).name %></td>
+      <td><%= item.title %></td>
+      <td><%= l(item.created_at, format: :long) %></td>
+      <td>       
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

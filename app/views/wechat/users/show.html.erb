@@ -1,0 +1,182 @@
+<% title_tag @user.fullname %>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel profile panel-default">
+      <div class="panel-body">
+        <div class="media">
+          <div class="avatar media-left">
+            <div class='image'><%= user_avatar_tag(@user, :lg, link: false) %></div>
+          </div>
+          <div class="media-body">
+            <div class="item">
+              昵称:<%= @user.name %><br/>
+              姓名:<%= @user.realname %><br/>
+              所在地:<%= @user.location %>
+              <% if current_user == @user %>
+              <p><%= link_to "编辑", edit_wechat_user_path(@user) %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="media-body">
+            <% if !@user.company.blank? %>
+            <div class="item company">
+              <%= @user.company %>
+            </div>
+            <% end %>
+            <div class="item">
+              <%= @user.title %>
+            </div > 
+            <div class="item counts">
+              <hr/>
+              <p><%= @user.university%><br/>
+                <%= @user.major%> - <%= @user.degree%>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="margin-top:10px">
+      <div class="panel-heading">
+        圈子
+        <% application_num=Node.application(current_user.id).size %>
+        <% if application_num>0%>
+        <a href="<%= application_notice_wechat_nodes_path %>">
+          收到<%= application_num %>条申请
+        </a>
+        <% end %>
+        <div class="pull-right">
+          <%= link_to "创建",new_wechat_node_path %>
+        </div>
+      </div>
+      <div class="panel-body">
+       <% i=0 %>
+        <% Topic.latest_two(current_user).each do |topic|%> <!-- 选两条最近发表的文章 -->
+        <div class="media">
+          <div class="media-left"><%= user_avatar_tag(topic.user, :md, link: false) %></div>
+          <div class="media-body">
+          <div class="media-header article-title"><%= link_to truncate(topic.title,length:30),wechat_topic_path(topic)%></div>
+            <div class="media-info"><sapn class="article-node"><%= link_to topic.node.name,wechat_node_path(topic.node)%> </sapn><span class="name-time"> <%= topic.user.name%>发表于<%= topic.created_at.strftime('%H:%M:%S') %></span></div>
+          </div>
+        </div>
+        <% if i== 0%>
+        <hr> 
+        <% end %>
+        <% i+=1 %>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        &nbsp
+        <div class="pull-right">
+          <%= link_to "更多",time_more_wechat_nodes_path%>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        我有
+        <% if current_user == @user %>
+        <div class="pull-right" >
+          <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">
+            <span class="fa fa-plus-square" aria-hidden="true"></span>
+          </a>
+        </div>
+        <% end %>
+      </div> 
+      <div class="panel-body">
+        <div class="media" id="speciality_items">
+          <% if @user.speciality && @user.speciality.include?(',') %>
+          <% @user.speciality.split(",").each do |s| %>
+          <span class="label label-info"><%= s %></span>
+          <% end %>
+          <% else %>
+          <span class="label label-info"><%= @user.speciality %></span>
+          <%end %>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body form-group">
+            <%= simple_form_for @user, remote: true, url: speciality_wechat_users_path, method: :post do |f| %>
+            <!--<%= f.input :speciality, input_html: { data: { role: "tagsinput"}} %>-->
+            <%= f.input :speciality, input_html: { id: 'tags'}, label: '特长' %>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit '添加', class:"btn btn-primary"%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        我求
+        <div class="pull-right">
+          <%= link_to '相助', new_wechat_passage_path %>
+        </div>
+      </div> 
+      <div class="panel-body">
+        <div class="media">
+          <%= render partial:'/wechat/passages/passage', collection: @passages, :as=> :passage%>
+        </div>
+      </div>
+      <div class="panel-footer clearfix">
+        <div class="pull-right">
+          <%= link_to '更多',wechat_user_passages_path(@user) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" id="user_github_repos">
+      <% if not @user.friendships.blank? %>
+      <div class="panel-heading">
+        朋友
+        <div class="pull-right">
+          <%= link_to '相识', wechat_acquaint_path %>
+        </div>
+      </div>
+      <div class="panel-body">
+        <% @friendships.each do |user| %>
+        <%= render partial: '/wechat/friendships/friendship', locals: {friendship: user } %>
+        <% end %>
+      </div>
+      <% else %>
+      <div class="panel-body">
+        无相识好友.
+      </div>
+      <% end %>
+      <div class="panel-footer clearfix">
+        <div class="pull-right">
+          <%= link_to '更多',wechat_user_friendships_path(@user) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" id="user_github_repos">
+
+      <div class="panel-heading">
+        付款
+
+      </div>
+      <div class="panel-body">
+       <%= link_to '升级付费会员', new_wechat_order_path, class:'btn btn-primary btn-block' %>
+     </div>
+
+     <div class="panel-footer clearfix">
+
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+

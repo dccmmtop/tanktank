@@ -1,0 +1,10 @@
+
+<%= simple_form_for([:admin, @keyword]) do |f| %>
+  <%= render "/shared/error_messages", target: @keyword  %>
+    <%= f.input :name %>
+    
+    <div class="form-group">
+      <%= f.submit t("common.save"), class: "btn btn-primary" %> or <%= link_to t("common.cancel"), admin_keywords_path %>
+    </div>
+
+<% end %>

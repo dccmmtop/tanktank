@@ -1,0 +1,15 @@
+<div class="topic media topic-<%= friendship.id %>">
+  <div class="avatar media-left">
+    <div class='image'>
+      <%= user_avatar_tag(User.find(friendship.friend_id), :sm, link: false) %>
+    </div>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <%= link_to User.find(friendship.friend_id).name, wechat_user_path(User.find(friendship.friend_id))  %>
+    </div>
+    <div class="info">
+      相识于<%= friendship.event %>•<%= friendship.friend_request.started_at if friendship.friend_request %>
+    </div>
+  </div>
+</div>

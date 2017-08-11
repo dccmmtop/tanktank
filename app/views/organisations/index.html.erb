@@ -1,0 +1,26 @@
+<% title_tag t('menu.organisations')%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body item-list">
+        <% @organisations.each do |organisation| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="media user-card">
+            <div class="media-body">
+              <div class="media-heading"><%= link_to organisation.name, organisation_path(organisation), target: "_blank" %></div>
+               <div class="infos">
+                <div class="item opts"><%= organisation.industry %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+      <div class="panel-footer clearfix">
+        <%= will_paginate @organisations %>
+      </div>
+    </div>
+  </div>
+</div>
+

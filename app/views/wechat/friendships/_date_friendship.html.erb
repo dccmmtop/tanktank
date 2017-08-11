@@ -1,0 +1,19 @@
+<% previous_point = @points[i-1] unless index ==0 %>
+<div class="topic media topic-<%= friendship.id %>">
+  <div class="media-left" style="width: 350px">
+    <h3 style="display:inline;"><%= friendship.created_at.strftime("%d") %></h3><h5 style="display:inline;"><%= friendship.created_at.strftime("%_m月") %></h5>
+  </div>
+  <div class="avatar media-left">
+    <div class='image'>
+      <%= user_avatar_tag(User.find(friendship.friend_id), :sm, link: false) %>
+    </div>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <%= link_to User.find(friendship.friend_id).name, wechat_user_path(User.find(friendship.friend_id))  %>
+    </div>
+    <div class="info">
+      相识于<%= friendship.event %>•<%= friendship.friend_request.started_at if friendship.friend_request %>
+    </div>
+  </div>
+</div>

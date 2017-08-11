@@ -1,0 +1,25 @@
+<% title_tag current_user.fullname %>
+<div class="row">
+  <div class="col-xs-12">
+   <div class="panel profile panel-default">
+    <div class="panel-heading">相识</div> 
+    <div class="panel-body">
+      <p>你与你的朋友在 <strong><SPAN style="TEXT-DECORATION: underline"><%= @date %></SPAN></strong><br />
+      相识于 <strong><SPAN style="TEXT-DECORATION: underline"><%= @content %></SPAN></strong></p>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <p>
+            以下方式任选一种：</p>
+          <p>
+            1 - 邀请朋友面对面扫码相识</p>
+          <p>
+            2 - 【 右上角微信菜单 ... 】分享页面相识更多朋友</p>
+        </div>
+        <div class="col-md-12 col-xs-12" id="wechat_friend_request_qr_code">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

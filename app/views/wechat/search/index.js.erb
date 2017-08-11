@@ -1,0 +1,9 @@
+<% @items.each do |i| %>
+$('#result').append("<%= j render '/wechat/search/item', item: i %>");
+<% end %>
+<% if @items.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @items %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

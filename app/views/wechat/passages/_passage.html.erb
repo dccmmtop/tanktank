@@ -1,0 +1,21 @@
+<div class="media item-<%= passage.id %>">
+	<div class="avatar media-left">
+    <div class='image'>
+      <%= user_avatar_tag(passage.user, :sm, link: false) %>
+    </div>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <%= link_to passage.title, wechat_passage_path(passage, uid: current_user.id)  %>
+      <% if current_user == passage.user %>
+      <% comment_num = current_user.notifications.unread_comments(passage.id).count %>
+      <% if comment_num > 0 %>
+      <span class="badge"><%= comment_num %></span>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="info">
+      <%= passage.user.name %> • <%= passage.created_at.strftime("%Y年%m月%d日") %>
+    </div>
+  </div>
+</div>

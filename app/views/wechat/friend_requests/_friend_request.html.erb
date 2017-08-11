@@ -1,0 +1,20 @@
+<div class="topic media topic-<%= friend_request.id %>">
+  <div class="infos media-body">
+    <div class="title media-heading">
+      在<%= friend_request.started_at if friend_request.started_at %> <%= link_to  "相识于 #{friend_request.content}", wechat_send_friend_request_path(:uid => friend_request.user_id, :event => friend_request.content, :request_id => friend_request.id, access: Friendship.access_statuses[:share_link], :token => friend_request.access_token) %>
+    </div>
+    <div class="info">
+      请求日期:<%= friend_request.created_at.strftime("%Y年%m月%d日") %>
+    </div>
+    <div class="info">   	
+      <% @friends = ''
+      @friendships = friend_request.friendships %>
+      相识的朋友：
+      <% @friendships.each do |f| %>
+      <% if User.find(f.user_id) == current_user %>
+      <%= link_to User.find(f.friend_id).name, wechat_friendship_path(f) %> 
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

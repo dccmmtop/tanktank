@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= Setting.app_name %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" href="<%= asset_path('favicon.png') %>" />
+  <%= stylesheet_link_tag "front", 'data-turbolinks-track': "reload" %>
+  <%= stylesheet_link_tag "turbolinks-app", 'data-turbolinks-track': 'reload' if turbolinks_app? %>
+  <%= stylesheet_link_tag "wechat", 'data-turbolinks-track': "reload"%>
+  <%= action_cable_meta_tag %>
+  <%= csrf_meta_tag %>
+
+  <%= javascript_include_tag "app", 'data-turbolinks-track': "reload" %>
+  <%= javascript_include_tag '//res.wx.qq.com/open/js/jweixin-1.0.0.js' %>
+
+</head>
+<body style="padding-top: 10px">
+  <%= yield :javascript %>
+  <div class="container">
+    <div style='margin:0 auto;width:0px;height:0px;overflow:hidden;'>
+      <%= image_tag("getheadimg.jpg", width: '700') %>
+    </div>
+    <%= yield %>
+    <div class="row">
+      <div class="col-xs-12">
+        <%= render "shared/qr" %>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" data-turbolinks-eval="false">
+    App.root_url = "<%= main_app.root_url %>";
+    App.asset_url = "<%= Setting.upload_url -%>";
+    App.twemoji_url = "<%= Twemoji.configuration.asset_root %>";
+    App.locale = "<%= I18n.locale %>";
+    <% if current_user %>
+    App.current_user_id = <%= current_user.id %>;
+    <% end %>
+    <% if turbolinks_app? %>
+    App.turbolinks = true;
+    <% end %>
+  </script>
+  <%= yield :scripts %>
+  <script>
+    ga('create', '<%= Setting.google_analytics_key %>', 'auto');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+  <div class="zoom-overlay"></div>
+  <div id="wechat_footer">
+    <div class="col-xs-12 navbar-inverse navbar-fixed-bottom">
+      <div class="row" id="bottomNav">
+        <div class="col-xs-4 text-alignt"><%= link_to "资讯", wechat_topics_path %></div>
+        <div class="col-xs-4 text-alignt"><%= link_to "发现", find_circle_wechat_nodes_path %></div>
+        <!--<div class="col-xs-6"><%#= link_to "我的", wechat_user_path(current_user) %></div>-->
+        <div class="col-xs-4"><%= link_to "我的", wechat_me_path %></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+$("#comment_error").empty();
+<% if @comment.errors.empty? %>
+  $("#comment-content").val('');
+  $("#comment-item").append("<%= j render 'wechat/comments/comment', comment: @comment %>");
+<% else %>
+  $('#comment_error').prepend('<%= j render("shared/error_messages", target: @comment) %>');
+<% end %>

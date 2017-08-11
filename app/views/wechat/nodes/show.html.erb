@@ -1,0 +1,57 @@
+ <div class="panel panel-default">
+  <div class="panel-body">
+    <div class="clearfix">
+      <%= notice_message%>
+      <% @user=User.find_by(id:@node.user_id) %>
+      <div class='img img-response '><%= user_avatar_tag(@user,:md,link: false) %></div>
+      <div class="pull-right">
+        <% if @node.user_id==current_user.id%> <!-- 当前用户是node的创建者 -->
+        <%= link_to "编辑", edit_wechat_node_path,class:"btn btn-info"%>
+        <% elsif status_node(@node)==Subscription.applications[:applying] %><!-- 当前用户已经申请过 -->
+        <%= link_to "申请中","#",class:"btn btn-default",disabled:"disabled"%>
+        <%elsif status_node(@node)==Subscription.applications[:passed]%><!-- 当前用户已经关注过 -->
+        <%= link_to "取消关注",{:controller=>'nodes',:action=>'focus',:apply=>'cancel',:id=>@node.id},class:"btn btn-info"%>
+        <% elsif status_node(@node)==Subscription.applications[:refuse]%><!-- 当前用户没有关注或者没有申请过 -->
+        <% if @node.access_level==Node.accesses[:semi_public]%><!-- node的状态是半公开的 -->
+        <%= link_to "申请关注",{:controller=>'nodes',:action=>'focus',:apply=>'true',:id=>@node.id},class:"btn btn-info"%>
+        <% else%><!-- node的状态是公开的 -->
+        <%= link_to "关注",{:controller=>'nodes',:action=>'focus',:apply=>'false',:id=>@node.id},class:"btn btn-info"%>
+        <% end %>
+        <% end %>
+      </div>
+      <div class="circle_name "><h3><%= @node.name%></h3>
+        <% if @node.tag %>
+        <%= link_to image_tag("tag.png" ,class:"tag-img")%> 
+        <span class="tag"><%= @node.tag%></span>
+        <% end %><br>
+      </div>
+      <div class="name-time ">
+        <%= @user.name %>创建于<%= @node.created_at.to_s[0,10] %>
+      </div>
+    </div>
+    <hr>
+    <div class="clearfix">
+      <div class="summary-title">简介:</div>
+      <div class="summary">
+        <%= @node.summary%>
+      </div>
+    </div>
+    <hr>
+    <% if status_node(@node)==Subscription.applications[:passed]%>
+    <div class="new-topic">
+      <%= link_to "发表文章",{:controller=> 'topics',:action=>'new',:node_id=>@node.id} %>
+    </div>
+    <hr>
+    <% end %>
+    <div class="more-topic">
+      <%= link_to "查看文章",wechat_node_topics_path(:node_id=>@node.id) %>
+    </div>
+    <hr>
+    <% if @node.access_level==Node.accesses[:secretive] %>
+      <div class="share">
+      <%= link_to "分享圈子",new_wechat_invite_path(id: @node.id) %>
+    </div>
+    <hr>
+    <% end %>
+  </div>  
+</div>

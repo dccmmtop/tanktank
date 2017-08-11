@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="timeline-centered">
+          <% @topics.group_by(&:date).each do |date, items| %>
+            <%= render :partial => "recommendations/re", :locals => { :date => date, :topics =>  items} %>
+          <% end %>
+        </div>
+      </div>
+      <div class="panel-footer clearfix">
+        
+      </div>
+    </div>
+
+    <% if current_user %>
+    <script type="text/javascript">
+      var readed_topic_ids = <%= @read_topic_ids || [] %>;
+      for (var i = 0; i < readed_topic_ids.length; i++) {
+        topic_id = readed_topic_ids[i];
+        $(".topic-"+ topic_id).addClass('topic-visited');
+        $(".topic-"+ topic_id + " .count a").addClass("state-true");
+      }
+    </script>
+    <% end %>
+  </div>
+  <div class="sidebar col-md-3">
+    <%= render "topics/sidebar_for_topic_index" %>
+  </div>
+
+</div>

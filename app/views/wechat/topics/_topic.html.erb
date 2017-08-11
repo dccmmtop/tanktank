@@ -1,0 +1,24 @@
+<div class="topic media topic-<%= topic.id %>">
+  <div class="media-left"><%= user_avatar_tag(topic.user, :md, link: false) %></div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <% if current_user %>
+        <%= link_to(truncate(topic.title, length: 50), wechat_topic_path(topic, uid: current_user.id), title: topic.title,class:"article-title") %>
+      <% else %>
+        <%= link_to(truncate(topic.title, length: 50), wechat_topic_path(topic), title: topic.title,class:"article-title") %>
+      <% end %>
+
+    </div>
+    <div class="info">
+      <%= link_to topic.node.name,wechat_node_path(topic.node)%>
+      •
+      <% if topic.last_reply_user_login.blank? %>
+        <%= raw t("common.created_at", time: topic.created_at.strftime("%Y年%m月%d日"))%>
+      <% else %>
+        <%= t("common.last_by")%> <%= user_name_tag(topic.last_reply_user_login) %> <%= raw t("common.reply_at", time: topic.replied_at.strftime("%Y年%m月%d日"))%>
+      <% end %>
+      </span>
+    </div>
+  </div>
+</div>
+<hr>

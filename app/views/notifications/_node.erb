@@ -1,0 +1,9 @@
+<% node = notification.target %>
+<% if node.blank? %>
+  相关信息已删除
+<% else %>
+  <div class="media-heading">
+    <!-- 创建了圈子 <%= node_title_tag(node) %> -->
+    <%= notification.notify_title %>
+  </div>
+<% end %>

@@ -1,0 +1,51 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.nodes")%></span>
+<% end %>
+
+<div class="toolbar">
+  <%= link_to '新建节点', new_admin_node_path, class: "btn btn-default" %>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>Name</td>
+    <td>分类</td>
+    <td>审核情况</td>
+    <td>排序</td>
+    <td>帖子数量</td>
+    <td>创建人</td>
+    <td>创建时间</td>
+    <td></td>
+  </tr>
+
+<% @nodes.each do |node| %>
+  <tr>
+    <td class="first"><%= node.id %></td>
+    <td><%= link_to node.name, node_topics_path(node.id) %></td>
+    <td><%= node.section.name %></td>
+    <td>
+      <% if node.section.name == '圈子' %>
+        <% if node.audit == 0 %>
+        <%= link_to review_admin_node_path(node, audit:1)  do %>
+          <i class="fa fa-check" aria-hidden="true"></i>通过 
+        <% end %>
+        <%= link_to review_admin_node_path(node, audit:2)  do %>
+          <i class="fa fa-times" aria-hidden="true"></i>不通过
+        <% end %>
+        <% elsif node.audit == 1 %>
+        审核通过
+        <% else %>
+        审核不通过
+        <% end %>
+      <% end %>
+    </td>
+    <td><%= node.sort %></td>
+    <td><%= node.topics_count %></td>
+    <td><%= User.find_by(id: node.user_id).name if node.user_id.present? %></td>
+    <td><%= node.created_at.strftime("%Y-%m-%d") %></td>
+    <td><%= link_to '', edit_admin_node_path(node), class: "fa fa-pencil" %>
+    <%= link_to '', admin_node_path(node), 'data-confirm' => 'Are you sure?' , method: :delete, class: "fa fa-trash" %></td>
+  </tr>
+<% end %>
+</table>

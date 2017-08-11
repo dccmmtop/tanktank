@@ -1,0 +1,65 @@
+<% title_tag t("users.personal_information") %>
+
+<div class="row">
+  <div class="col-xs-12">
+    <% title_tag t("users.personal_information") %>
+    <%= simple_form_for([:wechat, @user], url: wechat_user_path(@user), html: { method: :put, enctype:  "multipart/form-data" })do |f| %>
+    <%= render "shared/error_messages", target: @user %>
+    <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#personal_information"><%= t("users.personal_information") %></a>
+        </h4>
+      </div>
+      <div id="personal_information" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <%= f.input :name,label: '昵称', id: 'nickname' %>
+          真实姓名 使用昵称<input type="checkbox" name="checkbox" id="check_nickname" /> 
+          <%= f.input :realname, label:'*', id:'realname' %>
+          <%= f.input :company %>
+          <%= f.input :title %>
+        </div>
+      </div>
+    </div>
+       <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#personal_education"><%= t("users.personal_education") %></a>
+        </h4>
+      </div>
+      <div id="personal_education" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= f.check_box :is_student, id: 'stu_check'%> <%= t("activerecord.attributes.user.is_student") %>
+          <%= f.input :university %>
+          <%= f.input :degree, :collection => { '博士' => '博士', '硕士' => '硕士', '学士' => '学士', '其他' => '其他'} %>
+          <%= f.input :major %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#personal_contact"><%= t("users.personal_contact") %></a>
+        </h4>
+      </div>
+      <div id="personal_contact" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= f.input :location, label: '所在城市' %>
+          <%= f.input :telephone, label: '手机号码' %>
+          <%= f.input :email, input_html: { class: "span4" } %>
+          <div class="checkbox">
+            <label for="user_email_public" class="checkbox"><%= f.check_box :email_public %> <%= t("users.email_permission")%></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <button type="submit" class="btn btn-primary btn-block" data-disable-with="<%= t("common.saving") %>"><%= t("users.update_profile")%></button>
+    </div>
+  </div>
+  <% end %>
+  </div>
+</div>

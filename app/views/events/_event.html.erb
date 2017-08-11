@@ -1,0 +1,19 @@
+<div class="topic media topic-<%= event.id %>">
+  <div class="avatar media-left">
+    <%= user_avatar_tag(event.user, :md) %>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <%= link_to(truncate(event.name, length: 100), event_path(event), title: event.name) %>
+
+    </div>
+    <div class="info">
+      <%= user_name_tag(event.user) %>
+      <span class="hidden-mobile">
+      •
+      <%= raw t("common.created_at", time: timeago(event.created_at))%>      
+      </span>
+    </div>
+  </div>
+  
+</div>

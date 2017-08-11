@@ -1,0 +1,12 @@
+$(".bs-example-modal-sm").modal("hide");
+$( "#speciality_items").empty();
+ <% if current_user.speciality %>
+  <% if current_user.speciality.include?(',') %>
+    <% current_user.speciality.split(",").each do |s| %>
+    $("#speciality_items").append("<span class='label label-info' style='display:inline-block'><%= s %></span>&nbsp;");
+    //$("#speciality_items").innerHTML += "<span class='label label-info'><%= s %></span>&nbsp;"
+    <% end %>
+  <% else %>
+    $("#speciality_items").append("<span class='label label-info'><%= current_user.speciality %></span>&nbsp;");
+  <% end %>
+<%end %>

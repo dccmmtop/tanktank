@@ -1,0 +1,22 @@
+<div class="clearfix recommendation-detail ">
+  <h3><%= topic.title %></h3>
+  <div class="info">
+    时间：<%= timeago(topic.created_at) %> 阅读：<%=topic.hits %>次 来源：
+    <% if topic.recommendation %>
+      <% if topic.source.present? && (!topic.source.include? 'www') %>
+      <% if topic.source.include? '产学联' %>
+        <span class="label label-success"><%= topic.source %></span>
+      <% else %>
+        <%= topic.source %>
+      <% end %>
+      <% end %>
+    <% else %> <%= topic.node_name %> - <%= user_name_tag(topic.user, data: { author: true }) %><% end %>
+  </div>
+  <% if @topic.cover.present?  %>
+  <div class="cover markdown">
+    <%= image_tag(@topic.cover.url) %></div>
+  <% end %>
+  <% if @topic.summary.present?  %>
+  <div class="summary"><%= @topic.summary %></div>
+  <% end  %>
+</div>

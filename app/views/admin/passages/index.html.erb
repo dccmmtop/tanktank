@@ -1,0 +1,77 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("activerecord.models.passage") %></span>
+<% end %>
+
+<div class="toolbar">
+  <form class="form-inline" action="<%= admin_passages_path %>">
+    <div class="form-group">
+      <input type="text" name="q" class="form-control" value="<%= params[:q] %>" placeholder="推荐标题" />
+    </div>
+    <button class="btn btn-default">搜索</button>
+  </form>
+</div>
+<ul class="nav nav-tabs" id="product-table">
+  <li>
+    <a href="#1" data-toggle="tab">全部</a>
+  </li>
+  <li>
+    <a href="#2" data-toggle="tab">待审核</a>
+  </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane" id="1">
+      <table class="table table-bordered table-striped table-condensed">
+        <tr class="head">
+          <td class="first">#</td>
+          <td>标题</td>
+          <td>审核状态</td>
+          <td>创建人</td>
+          <td>创建时间</td>
+       </tr>
+       <% @passages.each do |item| %>
+       <tr>
+         <td class="first"><%= item.id %></td>
+         <td><%= link_to item.title, edit_admin_passage_path(item) %></td>
+         <td>
+          <% if item.status == Passage.audit_statuses[:non_audit] %>
+          待审核
+          <% elsif item.status == Passage.audit_statuses[:audit_success]%>
+          审核通过
+          <% elsif item.status == Passage.audit_statuses[:audit_failure] %>
+          审核失败
+          <% end %> 
+         </td>
+         <td><%= User.find(item.user_id).name %></td>
+         <td><%= item.created_at.strftime("%F %H:%M" ) %></td>  
+       </tr>
+       <% end %>
+       </table>
+       <%= will_paginate @passages %>
+      
+    </div>
+    <div class="tab-pane" id="2">
+      <table class="table table-bordered table-striped table-condensed">
+        <tr class="head">
+          <td class="first">#</td>
+          <td>标题</td>
+          <td>审核状态</td>
+          <td>创建人</td>
+          <td>创建时间</td>
+       </tr>
+       <% @passages_for_audit.each do |item| %>
+       <tr>
+         <td class="first"><%= item.id %></td>
+         <td><%= link_to item.title, edit_admin_passage_path(item) %></td>
+         <td>待审核</td>
+         <td><%= User.find(item.user_id).name %></td>
+         <td><%= item.created_at.strftime("%F %H:%M" ) %></td>  
+       </tr>
+       <% end %>
+       </table>
+    </div>
+</div>
+
+
+
+
+

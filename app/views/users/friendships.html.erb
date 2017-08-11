@@ -1,0 +1,24 @@
+<% title_tag [@user.fullname, t('users.menu.friendships')].join(' · ') %>
+
+<div class="row">
+  <%= render "sidebar", user: @user %>
+  <div class="col-md-8">
+    <%= render "menu" %>
+    <div class="panel panel-default">
+      <% if current_user == @user %>
+      <div class="panel-heading">
+        <div class="form-inline">
+          <div class="form-group">
+            <input type="text" id="textEvent" class="form-control" placeholder="地点／主题／缘由" />
+          </div>
+          <a class="button-scan-user btn btn-default" data-id="<%= @user.id %>">相识</a>
+        </div>
+      </div>
+      <% end %>
+      <%= render "friendships", users: @users %>
+      <div class="panel-footer clearfix">
+        <%= will_paginate @users %>
+      </div>
+    </div>
+  </div>
+</div>

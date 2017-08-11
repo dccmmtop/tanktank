@@ -1,0 +1,8 @@
+<%= simple_form_for([:wechat, @friend_request]) do |f| %>
+  <input type="hidden" name="user_id" value="<%= @user.login %>">
+  <%= render "shared/error_messages", target: @friend_request %>
+
+  <%= f.input :content, label: "相识理由" %>
+  <%= f.input :started_at, label: "相识时间" %>
+  <%= f.submit class: "btn btn-primary btn-block" %>
+<%end%>

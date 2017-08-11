@@ -1,0 +1,13 @@
+
+<%= simple_form_for(@share) do |f| %>
+  <%= render "/shared/error_messages", target: @share  %>
+    <%= f.input :user_id %>
+    <%= f.input :friend_id %>
+    <%= f.input :event_id %>
+    <%= f.input :event %>
+    <div class="form-group">
+    <div class="col-md-10 col-sm-offset-2">
+      <%= f.submit t("common.save"), class: "btn btn-primary" %> or <%= link_to t("common.cancel"), shares_path %>
+    </div>
+  </div>
+<% end %>

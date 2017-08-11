@@ -1,0 +1,36 @@
+<div class="row">
+  <% if current_user.interest.nil? %>
+    <%= render 'keywords'%>
+  <% else %>
+    <div class="col-xs-12">
+      <div class="panel panel-default userinfo">
+        <div class="panel panel-heading">
+        猜你感兴趣
+        </div>
+      <div class="panel panel-body">
+
+           <% @items.each do |item| %>
+          <%= render '/wechat/search/item', item: item %>
+        <% end %>
+        <div class="pull-right">
+          <%= link_to "更多", wechat_search_path %>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="panel panel-default userinfo">
+        <div class="panel panel-heading">
+        最新资讯
+        </div>
+      <div class="panel panel-body">
+        <%= render partial: '/wechat/topics/topic', collection: @topics %>
+        <div class="pull-right">
+          <%= link_to "更多", wechat_topics_path %>
+        </div>
+      </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>

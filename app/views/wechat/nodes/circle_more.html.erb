@@ -1,0 +1,61 @@
+<br>
+<br>
+<div class="container">
+  <div id="top">
+    <nav class="navbar-fixed-top">
+      <div class="btn-group btn-group-lg btn-group-justified">
+        <%= link_to "按时间",time_more_wechat_nodes_path,class:"btn  btn-default btn-dy1" %>
+        <%= link_to "按圈子",circle_more_wechat_nodes_path,class:"btn  btn-dy2" %>
+      </div>
+    </nav>
+  </div>
+  <% @nodes.each do |node|%>
+  <div class="img-title">
+    <a href="<%= node.id %>">
+      <div class="text-title">
+        <span><b><%= node.name %></b></span>
+        <br>
+        ——<br>
+        <% if node.user_id %>
+        <%= User.find_by(id:node.user_id).name%> 
+        <% end %>
+      </div>
+    </a>
+  </div>
+  <% end %>
+</div>
+<br>
+<br>
+
+
+<!-- top悬浮按钮 -->
+
+<style type="text/css">
+
+  a:hover {text-decoration:none;}
+  .btn-dy2 {
+    background-color: #D8D8D8;
+  }
+  .img-title {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 120px;
+    height: 120px;
+    background-color: #FBF8EF;
+    border: 1px solid gray;
+    float: left;
+  }
+  .text-title {
+    font-size: 15px;
+    font-family: fantasy;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .text-title span{
+    font-weight: bold;
+  }
+  .img-responsive {
+    width: 120px;
+    height: 120px;
+  }
+</style>

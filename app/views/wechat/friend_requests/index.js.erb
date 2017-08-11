@@ -1,0 +1,7 @@
+$('#items').append('<%= j render @friend_requests %>');
+<% if @friend_requests.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @friend_requests %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

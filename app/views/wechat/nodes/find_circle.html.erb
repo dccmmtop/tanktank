@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+<div class="panel panel-heading">发现</div>
+  <div class="panel-body">
+    <% access_level=['','半公开','公开']%>
+    <% @nodes.each do |node|%>
+    <div class="clearfix">
+      <div class='img img-response '><%= user_avatar_tag(User.find_by(id:node.user_id), :md, link: false) %></div>
+      <div class="circle_name "><h4><%= link_to node.name,wechat_node_path(node)%></h4>
+      <span class="subtitle"><%=access_level[node.access_level] %></span>
+      <%= link_to image_tag("watch.png",alt:"关注",class:"img-watch")%>
+      <span class="subtitle"> <%= node.watch_count %></span>
+      <br>
+      </div>
+      <div class="summary ">
+       <%= node.summary %>
+     </div>
+   </div>
+   <hr>
+   <% end %>
+ </div>
+</div>
+<style type="text/css">
+  h4{
+    display: inline;
+  }
+  .img-watch{
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    display: inline;
+  }
+  .subtitle{
+    margin-left: 2px;
+    font-size: 10px;
+    color: gray;
+  }
+  .img{
+    float:left;
+    margin-right: 10px;
+  }
+  .clearfix{content:'';clear:both;display:block;}
+  .summary{
+    font-size: 10px;
+    color: gray;
+  }
+</style>

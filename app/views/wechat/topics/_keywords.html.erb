@@ -1,0 +1,24 @@
+
+<div class="col-xs-12">
+  <div class="panel panel-default userinfo">
+    <div class="panel panel-heading">
+      告诉我们你感兴趣的有哪些？
+    </div>
+    <div class="panel panel-body">
+      <form action="/wechat/topics/follow_tag" method="get">
+      <% @keywords.each do |item| %>
+        <div class="col-md-4 col-xs-12">
+          <div class="checkbox-inline">
+          <input type="checkbox" name="q[]" value=<%= item.name %>><%= label_tag(:q, item.name) %></div>
+        </div>
+      <% end %>
+      
+        <button class="btn btn-info btn-lg btn-block" >
+          <i class="fa fa-check"></i>
+        </button> 
+      
+
+      </form>
+    </div>
+  </div>
+</div>

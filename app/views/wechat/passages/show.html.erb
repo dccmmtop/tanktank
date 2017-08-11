@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">相助
+      </div>
+      <div class="panel-body">
+        <% case @passage.status %>
+        <% when Passage.audit_statuses[:audit_failure] %>
+          <h3><STRIKE><%= @passage.title %></STRIKE></h3>
+          审核不通过,原因：<br />
+          <h4><span class="label label-danger"><%= @passage.comment %></span></h4>
+        <% when Passage.audit_statuses[:audit_success] %>
+          <h3><%= @passage.title %></h3>
+          <p>我想获得：<%= @passage.help %></p>
+          <p><%= raw(get_passage_url(@passage.description)) %></p>
+        <% when Passage.audit_statuses[:close] %>
+          <h3><%= @passage.title %></h3>
+          <span class="label label-danger">话题关闭</span>
+          <% if @passage.user == current_user %>
+            <p>我想获得：<%= @passage.help %></p>
+            <p><%= raw(get_passage_url(@passage.description)) %></p>
+          <% end %>
+        <% else %>
+          <h3><%= @passage.title %></h3>
+          <span class="label label-danger">等待后台审核</span>
+        <% end %>
+        
+      </div>
+      <div class="panel-footer info">
+        <%= User.find(@passage.user_id).name %>•<%= @passage.created_at.strftime("%Y年%m月%d日") %>
+        <% if current_user.id == @passage.user_id %>
+        <%= link_to  '删除', wechat_passage_path(@passage), method: :delete %>
+        <%= link_to "编辑", edit_wechat_passage_path(@passage) %>
+        <% end %> 
+      </div>
+    </div>
+    <% if @passage.status != Passage.audit_statuses[:close] %>
+    <div class="panel panel-default">
+      <div class="panel-heading">留言 <%= @comments.count %> 人
+      </div>
+      <div class="panel-body" id="comment-item">
+        <%= render partial: 'wechat/comments/comment', collection: @comments %>
+      </div>
+      <div class="panel-body">
+        <%= render 'comment_form' %>
+      </div>
+    </div>
+    
+
+    <div class="panel panel-default">
+      <div class="panel-heading">帮助推荐
+      </div>
+      <div class="panel-body">
+        目前已经有 <%= @shares.count %> 人帮助传递
+
+        <% @shares.each do |user| %>
+        <div class="col-xs-12">
+          <div class="avatar media-left">
+            <div class='image'>
+              <%= user_avatar_tag(User.find(user.friend_id), :sm, link: false) %>
+            </div>
+          </div>
+          <div class="infos media-body">
+            <div class="title">
+            <%= link_to User.find(user.friend_id).name, wechat_user_path(User.find(user.friend_id)) %>
+            </div>
+            <div class="info">
+            <%= user.created_at.strftime("%Y年%m月%d日") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+</div>

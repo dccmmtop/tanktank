@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+ <div class="panel-body">
+  <br>
+  <%= notice_message%>
+  <%= simple_form_for([:wechat,@node]) do |f|%>
+  <%= f.input :name,placeholder:"10字以内"%>
+  <%= f.input :access_level,:collection=>{"私密"=>Node.accesses[:secretive],"半公开"=>Node.accesses[:semi_public]}, as: :radio_buttons,label: '状态'%>
+  <%= f.input :summary ,as: :text,placeholder:"140字以内"%>
+  <br>
+  <%= f.button :submit, "创 建",class: 'btn  form-control  btn-success '%>
+  <br>
+  <br>
+  <%= link_to "返 回",wechat_me_path,class: 'btn  form-control  btn-info '%>
+  <br>
+  <br>
+  <% end %>
+</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default" id="user_github_repos">
+    <div class="panel-heading">会员升级</div>
+    <div class="panel-body">
+    	获取更多商业机会和投资咨询，马上升级
+      <%#= render 'form' %>
+      <div class="text-center"><h3>¥ 0.10</h3></div>
+      
+      <a href="javascript:;" class="to_pay btn btn-success btn-block">立即支付</a>
+
+      <% content_for :javascript do %>
+        <%= render "layouts/wechat_js" %>
+        <script type="text/javascript">
+          
+          $(".to_pay").click(function(){
+            wx.chooseWXPay({
+              "timestamp": "<%= @pay['timeStamp'] %>",
+              "nonceStr": "<%= @pay['nonceStr'] %>",
+              "package": "<%= @pay['package'] %>",
+              "signType": "<%= @pay['signType'] %>",
+              "paySign": "<%= @pay['paySign'] %>", // 支付签名
+              success: function (res) {
+                if(res.errMsg == "chooseWXPay:ok" ) {
+                    alert('支付成功');//支付成功
+                  }else{
+                    alert(res.errMsg);
+                  }
+                },
+                cancel:function(res){
+                    //支付取消
+                }
+            });
+          });
+        </script>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>

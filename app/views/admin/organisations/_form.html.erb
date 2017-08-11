@@ -1,0 +1,32 @@
+<%= simple_form_for([:admin,@organisation]) do |f| %>
+  <%= render 'shared/error_messages', target: @organisation %>
+  <fieldset>
+    <legend></legend>
+    <%= f.input :ticker, label: "股票代码" %>
+    <%= f.input :name, label: "公司名称" %>
+    <%= f.input :full_name %>
+    <%= f.input :industry %>
+    <%= f.input :area %>
+    <%= f.input :market_value %>
+    <%= f.input :price_to_earning %>
+    <%= f.input :main_product %>
+    <%= f.input :email %>
+    <%= f.input :concept %>
+    <%= f.input :city %>
+    <%= f.input :public_trade_type %>
+    <%= f.input :public_trade_place %>
+    <%= f.input :website %>
+    <%= f.input :registration_address %>
+    <%= f.input :legal_representative %>
+    <%= f.input :chairman %>
+    <%= f.input :brief %>
+    <%= f.input :fax %>
+    <%= f.input :telephone %>
+    <%= f.input :office_address %>
+    <%= f.input :scope %>
+    <div class="form-group">
+      <%= f.submit t("common.save"), class: "btn btn-primary", 'data-disable-with' => t("common.saving") %>
+      <%= link_to 'Back', admin_organisations_path %>
+    </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,6 @@
+<% content_for :sitemap do %>
+  <a href="<%= admin_keywords_path %>"><%= t("admin.menu.keywords")%></a> <i class="fa fa-angle-right"></i> <span class="current"><%= t("common.create")%></span>
+<% end %>
+<h1>新建内容</h1>
+
+<%= render 'form' %>

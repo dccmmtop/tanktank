@@ -1,0 +1,25 @@
+<%= render 'base' %>
+
+<div class="toolbar">
+  <%= link_to '修改', edit_share_path(@share), class: "btn btn-sm btn-success" %>
+  <%= link_to '返回', shares_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div id="share">
+    <p>
+    <b>User:</b>
+    <%= @share.user_id %>
+  </p>
+    <p>
+    <b>Friend:</b>
+    <%= @share.friend_id %>
+  </p>
+    <p>
+    <b>Event:</b>
+    <%= @share.event_id %>
+  </p>
+    <p>
+    <b>Event:</b>
+    <%= @share.event %>
+  </p>
+  </div>

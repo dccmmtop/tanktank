@@ -1,0 +1,29 @@
+<%= render 'base' %>
+
+<div class="toolbar">
+  <%= link_to '修改', edit_message_path(@message), class: "btn btn-sm btn-success" %>
+  <%= link_to '返回', messages_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div id="message">
+    <p>
+    <b>Sender:</b>
+    <%= @message.sender %>
+  </p>
+    <p>
+    <b>Receiver:</b>
+    <%= @message.receiver %>
+  </p>
+    <p>
+    <b>Title:</b>
+    <%= @message.title %>
+  </p>
+    <p>
+    <b>Content:</b>
+    <%= @message.content %>
+  </p>
+    <p>
+    <b>Type:</b>
+    <%= @message.type %>
+  </p>
+  </div>

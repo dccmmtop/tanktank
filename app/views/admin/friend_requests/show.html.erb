@@ -1,0 +1,17 @@
+<%= render 'base' %>
+
+<div class="toolbar">
+  <%= link_to '修改', edit_friend_request_path(@friend_request), class: "btn btn-sm btn-success" %>
+  <%= link_to '返回', friend_requests_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div id="friend_request">
+    <p>
+    <b>User:</b>
+    <%= @friend_request.user_id %>
+  </p>
+    <p>
+    <b>Content:</b>
+    <%= @friend_request.content %>
+  </p>
+  </div>

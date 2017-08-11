@@ -1,0 +1,15 @@
+<ul class="list-group recent-replies">
+  <% users.each do |user| %>
+    <% cache(['users', user]) do %>
+      <li class="list-group-item">
+        <div class="title">
+          <%= User.find(user.friend_id).name %>
+          <span class="info">at <%= timeago(user.created_at) %></span>
+        </div>
+        <div class="body markdown">
+          相识于：<%= raw user.event %>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

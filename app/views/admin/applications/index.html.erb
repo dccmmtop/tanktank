@@ -1,0 +1,38 @@
+<% content_for :sitemap do %>
+  <span class="current">OAuth 应用</span>
+<% end %>
+
+<div class="toolbar">
+  <a href="<%= new_admin_application_path %>" class="btn btn-sm btn-success">新建</a>
+</div>
+
+<div id="admin_applications">
+  <table class="table table-bordered table-striped table-condensed">
+    <tr class="head">
+      <th>编号</th>
+      <th>名称</th>
+      <th>uid</th>
+      <th>Owner</th>
+      <th>Tokens</th>
+      <th>Level</th>
+      <th>创建时间</th>
+      <th class="opts"></th>
+    </tr>
+    <% @applications.each do |item| %>
+    <tr class="<%= cycle("","even") %>">
+      <td><%= item.id %></td>
+      <td><%= link_to item.name, admin_application_path(item.id) %></td>
+      <td><%= item.uid %></td>
+      <td><%= user_name_tag(item.owner) %></td>
+      <td><%= item.access_tokens.count %></td>
+      <td><%= item.level %></td>
+      <td><%= l(item.created_at, format: :long) %></td>
+      <td>
+        <%= link_to '修改', edit_admin_application_path(item) %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <%= will_paginate @applications %>
+</div>

@@ -1,0 +1,17 @@
+<%= render 'base' %>
+
+<div class="toolbar">
+  <%= link_to '修改', edit_keyword_path(@keyword), class: "btn btn-sm btn-success" %>
+  <%= link_to '返回', keywords_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div id="keyword">
+    <p>
+    <b>Name:</b>
+    <%= @keyword.name %>
+  </p>
+    <p>
+    <b>Using count:</b>
+    <%= @keyword.using_count %>
+  </p>
+  </div>

@@ -1,0 +1,19 @@
+ <div class="panel panel-default">
+  <div class="panel-heading">邀请</div>
+  <div class="panel-body">
+  <%= simple_form_for([:wechat,@invite]) do |f|%>
+  <%= params[:id]%>
+  <input type="hidden" name="node_id" value="<%= params[:id]%>" />
+  <%= f.hidden_field :user_id ,value: current_user.id%>
+  <%= f.input :context,label:'邀请理由'%>
+  <% date={} 
+     time_now=Time.now
+     (1..7).each do |i|
+       date["#{i}天"]=time_now+i*24.hours
+     end
+  %>
+  <%= f.input :expire_at,collection:date,label: "链接有效时间"%>
+  <%= f.submit "生成邀请链接" ,class:'btn btn-info btn-block'%>
+  <% end%>
+  </div>  
+</div>

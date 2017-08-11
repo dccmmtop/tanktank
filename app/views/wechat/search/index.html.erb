@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default userinfo">
+    <div class="panel panel-heading">
+      感兴趣的
+    </div>
+    <div class="panel panel-body" id="result">
+      <% @items.each do |item| %>
+        <%= render '/wechat/search/item', item: item %>
+      <% end %>
+      <% if @items.next_page %>
+      <div id="infinite-scrolling" class="pull-right">
+        <%= will_paginate @items %>
+      </div>
+      <% end %>
+    </div>  
+  </div>
+</div>
+</div>

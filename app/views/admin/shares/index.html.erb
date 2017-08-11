@@ -1,0 +1,31 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("activerecord.models.share") %></span>
+<% end %>
+
+<div class="toolbar">
+  <form class="form-inline" action="<%= admin_shares_path %>">
+    <div class="form-group">
+      <input type="text" name="q" class="form-control" value="<%= params[:q] %>" placeholder="分享主题" />
+    </div>
+    <button class="btn btn-default">搜索</button>
+  </form>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>分享人</td>
+    <td>阅读人</td>
+    <td>分享主题</td>
+  </tr>
+
+<% @shares.each do |item| %>
+  <tr>
+    <td class="first"><%= item.id %></td>
+    <td><%= User.find(item.user_id).name %></td>
+    <td><%= User.find(item.friend_id).name %></td>
+    <td><%= Object.const_get(item.event).find(item.event_id).title %></td>  
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @shares %>

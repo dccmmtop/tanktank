@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default userinfo">
+    <div class="panel panel-heading">
+      我的请求
+    </div>
+    <div class="panel panel-body" id="items">
+      <%= render @friend_requests %>
+      <% if @friend_requests.next_page %>
+      <div id="infinite-scrolling" class="pull-right">
+        <%= will_paginate @friend_requests %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

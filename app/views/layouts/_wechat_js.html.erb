@@ -1,0 +1,43 @@
+<% 
+  $wechat_client ||= WeixinAuthorize::Client.new(Setting.wechat_id, Setting.wechat_secret)
+  sign_package = $wechat_client.get_jssign_package(request.url) 
+%>
+<%= javascript_include_tag '//res.wx.qq.com/open/js/jweixin-1.0.0.js' %>
+
+<script>
+  wx.config({
+    debug: true,
+    appId: "<%= sign_package['appId'] %>",
+    timestamp: "<%= sign_package['timestamp'] %>",
+    nonceStr: "<%= sign_package['nonceStr'] %>",
+    signature: "<%= sign_package['signature'] %>",
+    
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'hideMenuItems',
+      'showMenuItems',
+      'hideAllNonBaseMenuItem',
+      'showAllNonBaseMenuItem',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage',
+      'getNetworkType',
+      'openLocation',
+      'getLocation',
+      'hideOptionMenu',
+      'showOptionMenu',
+      'closeWindow',
+      'scanQRCode',
+      'chooseWXPay',
+      'openProductSpecificView',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
+  });
+
+</script>

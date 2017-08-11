@@ -1,0 +1,7 @@
+$('#items').append('<%= j render @passages %>');
+<% if @passages.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @passages %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

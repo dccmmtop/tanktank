@@ -1,0 +1,3 @@
+<% if current_user == fr.friend_request.user %>
+  <%= link_to '', edit_wechat_user_friend_request_path(fr.friend_request, user_id: current_user), class: "edit fa fa-pencil" %>
+<% end %>

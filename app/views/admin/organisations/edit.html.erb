@@ -1,0 +1,8 @@
+<% content_for :sitemap do %>
+  <a href="<%= admin_organisations_path %>"><%= t("admin.menu.organisations")%></a> <i class="fa fa-angle-right"></i> <span class="current"><%= t("common.edit")%></span>
+<% end %>
+<h1>修改内容</h1>
+
+<%= render 'form' %>
+
+

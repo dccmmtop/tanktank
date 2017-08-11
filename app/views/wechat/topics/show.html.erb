@@ -1,0 +1,147 @@
+<% title_tag @topic.title %>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    Topics.topic_id = <%= @topic.id %>;
+    <% if current_user && !@user_liked_reply_ids.blank? %>
+    Topics.user_liked_reply_ids = [<%= @user_liked_reply_ids.join(",") %>];
+    <% end %>
+    $(document).ready(function(){
+      <% if admin? %>
+        $("#replies .reply a.edit").css('display','inline-block');
+      <% elsif current_user %>
+        $("#replies .reply a.edit[data-uid='<%= current_user.id %>']").css('display','inline-block');
+      <% end %>
+    })
+  </script>
+<% end %>
+<% content_for :javascript do %>
+  <%= render "layouts/wechat_js" %>
+  <script type="text/javascript">
+    wx.ready(function () {
+
+     // 1.分享给朋友
+      wx.onMenuShareAppMessage({
+        title: "<%= @topic.title %>",
+        desc: "<%= @topic.title %>",
+        link: '<%= "#{request.protocol}#{request.host_with_port}#{wechat_topic_path(@topic, uid: @current_user.id)}" %>',
+        imgUrl: '<%= "#{request.protocol}#{request.host_with_port}#{asset_path('getheadimg.jpg')}" %>'
+      });
+       // 2. 分享到朋友圈
+      wx.onMenuShareTimeline({
+        title: "<%= @topic.title %>",
+        link: '<%= "#{request.protocol}#{request.host_with_port}#{wechat_topic_path(@topic, uid: @current_user.id)}" %>',
+        imgUrl: '<%= "#{request.protocol}#{request.host_with_port}#{asset_path('getheadimg.jpg')}" %>'
+      });
+
+      //  // 3. 图片预览
+      // var images = $(".am-slides img");
+      // images.click(function (){
+      //   var image_urls = $.map(images, function(pic){
+      //     return $(pic).attr("original-url");
+      //   });
+      //   var img_src = $(this).prop("src");
+      //   wx.previewImage({
+      //     current: img_src,
+      //     urls: image_urls
+      //   });
+      // });
+    });
+
+    wx.error(function(res){
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    });
+  </script>
+<% end %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topic-detail panel panel-default">
+      <%= render partial: "topics/topic_title", locals: { topic: @topic } %>
+
+      <% if @topic.excellent? %>
+        <div class="label-awesome">
+          <i class="fa fa-diamond awesome"></i> 本帖已被设为精华帖！
+          <% if admin? %>
+          <div class="pull-right">
+            <%= link_to icon_tag("close"), action_topic_path(@topic.id, type: 'unexcellent'), data: { method: "post", remote: true } %>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="panel-body markdown">
+        <%= raw Setting.before_topic_html %>
+
+        <article>
+          <%= raw @topic.body_html %>
+        </article>
+        <% if @topic.author.present? %>
+          源作者:
+          <% JSON.parse(@topic.author).each do |key, value| %>
+            <a href="<%= value %>" target="blank" ><%= key %></a>
+          <% end %>
+        <% end %>  
+        <% if @topic.source_date.present? %>      
+          发表日期: <%= @topic.source_date %>
+        <% end %>
+        <% if @topic.source.present?  && @topic.source =~ Regexp.new('www|http')%>
+          <a href="<%= @topic.source %>" target="blank">原文链接</a>
+        <% end %>
+        <%= render 'shared/statement' %>
+        <p>
+          <% if @topic.tags.present? %>
+            <i class="fa fa-tag fa-lg"></i>
+            <% @topic.tags.split(",").each do |tag| %>
+              <%= link_to tag, search_path(:q=> tag) %>
+            <% end %>
+          <% end %>
+        </p>
+
+        <%= raw Setting.after_topic_html %>
+      </div>
+      <div class="panel-footer clearfix">
+      <div class="pull-right">
+        <%= link_to "行动", new_wechat_user_passage_path(user_id: current_user, topic_id: @topic.id) %>
+      </div>
+    </div>
+    </div>
+
+  <% if @replies.blank? %>
+    <div class="no-result">
+      <%= t("topics.no_replies") %>
+    </div>
+    <% else %>
+    <div id="replies" class="panel panel-default" data-last-floor="<%= @replies.count(:all) %>">
+      <div class="total panel-heading hide-ios">
+        共收到 <b><%= @topic.replies_count %></b> 条评论
+      </div>
+      <div class="items panel-body">
+        <%= cache([@topic, "raw:#{@show_raw}"]) do %>
+          <%= render partial: "/wechat/topics/reply", collection: @replies %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user %>
+    <% if @topic.closed? %>
+      <div class="alert alert-info">此话题已经于 <%= l @topic.closed_at, format: :long %> 关闭，不再接受任何评论。</div>
+    <% else %>
+      <div id="reply" class="panel panel-default">
+        <div class="panel-heading hide-ios">评论</div>
+        <div class="panel-body">
+        <% if can? :create, Reply %>
+          <%= render 'reply_form' %>
+        <% else %>
+          <div class="alert alert-info">
+            当前设置新手用户不能在 22:00 ~ 9:00 发帖。
+          </div>
+        <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  </div>
+</div>

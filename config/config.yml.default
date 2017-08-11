@@ -1,0 +1,108 @@
+site_configs: &site_configs
+  # 导航栏 Logo 位置 HTML
+  navbar_brand_html: >
+    <a href="/" class="navbar-brand"><b>产学</b>联&trade;</a>
+  # 导航栏扩展菜单
+  navbar_html: >
+    <li><a href="#">产业机构</a></li>
+    <li><a href="#">学术机构</a></li>
+    <li><a href="#">投资机构</a></li>
+    <li><a href="#">科技知识图谱</a></li>
+  index_html: >
+    <div class="panel panel-dfault" style="text-align:center;">
+      <p class="panel panel-default hidden-xs"><img alt="Big_logo" src="/big_logo.jpg" ></p>
+      <p>产学联&#8482，致力于构建联接产业界，学术界，投资界的前沿科技交流平台。</p>
+      <p>不同于其他科技类网站，我们"极度功利化"地对待科技。每当看到一则科技进展的消息，我们第一个想的就是它有没有商业前景，有没有投资价值。同样，面对每一项商业需求，我们会想有没有什么技术可以构建产品去满足它，甚至构建出全新的产品/全新的需求。</p>
+      <p>在功利化原则指导下，我们对每一项科技：</p>
+      <p>关注影响力</p>
+      <p>关注需求</p>
+      <p>关注成本</p>
+      <p>关注跨界</p>
+      <p>我们是使命是<b>联接全球创新要素，促进人类社会发展。</b></p>
+      <p><b>Connect entrepreneurs, tech, and money, make innovations happen for a better world.</b></p>
+      <p>欢迎你上船，我们的征途是星辰大海。</p>
+      <p>功能正在完善中，欢迎提出宝贵意见。</a><b style="color:#c00;">code@mc-tech.cn</b></p>
+    </div>
+  wiki_index_html: >
+    <div>Wiki Home page.</div>
+  wiki_sidebar_html: >
+    <strong>推荐内容</strong>
+    <ul>
+      <li><a href="/wiki/about">关于我们</a></li>
+    </ul>
+  footer_html: >
+    <p class="copyright">
+     &copy; Powered by <a href="#">产学联&#8482,蔓草科技旗下网站。京ICP备15031214号-3 Code Forked from Ruby-China.</a>
+    </p>
+  after_topic_html: ""
+  before_topic_html: ""
+  topic_index_sidebar_html: ""
+  site_index_html: "下面列出了相关网站。如果你知道还有不在此列表的，请帮忙补充。"
+  custom_head_html: >
+    <link rel="dns-prefetch" href="//assets.your-host.com">
+  node_ids_hide_in_topics_index: ""
+  new_topic_dropdown_node_ids: ""
+  ban_words_on_reply: >
+    mark
+    收藏
+    顶
+    赞
+    up
+  tips: >
+    提示1
+    提示2
+  newbie_notices: >
+    <p>为提高社区质量，防止新人一来就发帖提问，新用户需要达到下面条件才可发帖：</p>
+    <ol style="color:#ad2b2d;">
+      <li>注册时间超过一个月；</li>
+      <li>回帖数量必须达到 10 帖以上；</li>
+    </ol>
+    <p>请在新人阶段多浏览，看看其他老用户是如何在社区里面分享与解决问题的。</p>
+  reject_newbie_reply_in_the_evening: false
+  apns_pem: ""
+  blacklist_ips: ""
+
+defaults: &defaults
+  <<: *site_configs
+  # Plugin module, [topic, home, wiki, site, note, team]
+  modules: 'topic,home'
+  app_name: "产学联"
+  domain: "zhiqucai.com"
+  https: false
+  admin_emails:
+    - "zhupeiyan@126.com"
+  google_analytics_key: ""
+  rack_attack:
+    # limit requests in a period
+    limit: 300
+    # (second)
+    period: 180
+  asset_host: ""
+  upload_provider: "upyun" # can be  upyun/aliyun
+  upload_access_id: "your-access-id" # or username
+  upload_access_secret: "your-access-secret" # or upyun password
+  upload_bucket: "your-bucket"
+  upload_url: "http://your-bucket.host.com"
+  upload_aliyun_internal: false
+  upload_aliyun_area: "cn-shanghai"
+  mailer_provider: 'smtp'
+  mailer_sender: 'tester@mc-tech.cn'
+  mailer_options:
+    address: 'smtp.exmail.qq.com'
+    port: 25
+    domain: 'localhost:3000'
+    user_name: 'tester@mc-tech.cn'
+    password: 'loveT123'
+    authentication: 'plain'
+    enable_starttls_auto: true
+  github_token: "91726ee4170d8e2679ec"
+  github_secret: "13c7e55e8e53c57a399181e96ea3a55a3fdd9c7c"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

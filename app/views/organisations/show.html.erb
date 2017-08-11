@@ -1,0 +1,32 @@
+<% title_tag @organisation.name %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topic-detail panel panel-default">
+      <div class="panel-heading media clearfix">
+        <div class="media-body">
+          <h1 class="media-heading">
+           <%= @organisation.name %>
+          </h1>
+          <div class="info">
+            所属行业:<%= @organisation.industry%>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+       主营产品:<br/>
+       <%= @organisation.main_product %>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">相关新闻</div>
+      <ul class="list-group">
+        
+      </ul>
+    </div>  
+  </div>
+  <div class="sidebar col-md-3">
+    <%= render 'shared/qr' %>
+  </div>
+
+</div>

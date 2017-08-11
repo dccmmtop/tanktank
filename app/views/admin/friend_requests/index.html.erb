@@ -1,0 +1,34 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("activerecord.models.friend_request") %></span>
+<% end %>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>请求人</td>
+    <td>相识理由</td>
+    <td>相识时间</td>
+    <td>请求时间</td>
+    <td>互为好友</td>
+    <td></td>
+  </tr>
+
+<% @friend_requests.each do |item| %>
+  <tr>
+    <td class="first"><%= item.id %></td>
+    <td><%= User.find(item.user_id).name %></td>
+    <td><%= item.content %></td>
+    <td><%= item.started_at %></td>
+    <td><%= item.created_at.strftime("%Y年%m月%d日") %></td>
+    <td><% if item.multiple %>
+      是
+      <% else %>
+      否
+      <% end %>
+    </td>
+    <td></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @friend_requests %>
+

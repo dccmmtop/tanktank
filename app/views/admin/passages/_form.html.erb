@@ -1,0 +1,15 @@
+
+<%= simple_form_for([:admin, @passage]) do |f| %>
+  <%= render "/shared/error_messages", target: @passage  %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :help %>
+    <%= f.input :status, :collection => Passage.audit_statuses %>
+    <%= f.input :comment %>
+    创建人：<%= User.find(@passage.user_id).name%>
+    <div class="form-group">
+    <div class="col-md-10 col-sm-offset-2">
+      <%= f.submit t("common.save"), class: "btn btn-primary" %> or <%= link_to t("common.cancel"), admin_passages_path %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,53 @@
+<% topics.each_with_index do |topic, i| %>
+<% previous = topics[i-1] unless i ==0 %>    
+ <div class="timeline-entry">
+    <div class="timeline-entry-inner">
+      <% if !previous %>
+      <div class="timeline-time">
+        <span><%= date %></span> 
+        <% if date.to_date.today?%>
+        <span>Today</span>
+        <% end %>
+      </div>
+      <% if date.to_date.today?%>
+        <div class="timeline-icon bg-success">
+          <i class="entypo-feather"></i>
+        </div>
+      <% else %>
+        <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+          <i class="entypo-flight"></i>
+        </div>
+      
+      <% end %>
+      
+      <% end %>
+      <div class="timeline-label">
+        <div class="row">
+          <div class="col-md-4">
+            <% if current_user %>
+            <%= link_to image_tag(show_image(topic), width: '200', height: '100'), topic_path(topic, uid: current_user.id), target: "_blank"  %>
+            <% else %>
+            <%= link_to image_tag(show_image(topic), width: '200', height: '100'), topic_path(topic), target: "_blank"  %>
+            <% end %></div> 
+          <div class="col-md-8">
+          <h2>
+            <% if current_user %>
+              <%= link_to topic.title, topic_path(topic, uid: current_user.id), target: "_blank" %>
+            <% else %>
+              <%= link_to topic.title, topic_path(topic), target: "_blank" %>
+            <% end %>
+          </h2> 
+          <p><%= topic.summary %></p> 
+          <p><% if topic.tags.present? %>
+            <i class="fa fa-tag fa-lg"></i>
+            <% topic.tags.split(",").each do |tag| %>
+              <%= link_to tag, search_path(:q=> tag) %>
+            <% end %>
+          <% end %></p>
+        </div>
+        </div>
+      </div>
+    </div>
+   </div>
+<% end %>
+	

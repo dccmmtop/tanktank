@@ -1,0 +1,86 @@
+#wechat_footer {
+  margin-top: 50px;
+}
+
+
+#bottomNav {
+  padding:10px;
+  text-align: center;
+  
+  a {
+    font-size:12pt;
+    color:#ddd;
+    text-decoration:none;
+    &:hover {
+      color:#fff;
+    }
+  }
+}
+
+.info {
+  color:#c0c0c0;
+  font-size:12px;
+  padding-bottom: 0px;
+}
+
+#infinite-scrolling {
+  visibility: hidden;
+}
+
+.bootstrap-tagsinput {
+  width: 100% !important;
+}
+
+.wechat-recommendation {
+  margin-bottom: 10px;
+  .title{
+    font-size: 14px;
+    font-weight: bold;;
+  }
+  .summary {
+    color: #c0c0c0;
+    font-size: 12px;
+  }
+}
+a:hover {
+  text-decoration:none;
+}
+h3{
+  display: inline;
+}
+.img-watch{
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
+.watch{
+  margin-left: 2px;
+  font-size: 10px;
+  color: gray;
+}
+.img{
+  float:left;
+  margin-right: 10px;
+}
+.summary-title{
+  float:left;
+  margin-right: 10px;
+}
+.clearfix{
+  content:'';
+  clear:both;
+  display:block;
+}
+.summary{
+  font-size: 10px;
+  color: gray;
+}
+.tag-img{
+  width:15px;
+  height: 15px;
+}
+.tag{
+  font-size: 10px;
+  color: gray;
+}

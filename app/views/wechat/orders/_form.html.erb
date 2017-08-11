@@ -1,0 +1,6 @@
+<%= simple_form_for([:wechat, @order]) do |f| %>
+  <%= render "shared/error_messages", target: @order %>
+     <%= f.input :title, label: false, placeholder:'缴费项：会员升级' %>
+     <%= f.input :fee, label: false,placeholder:'元' %>
+  <%= f.submit class: "btn btn-primary btn-block" %>
+<%end%>

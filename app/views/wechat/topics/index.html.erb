@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-xs-12">
+  <div class="panel panel-default userinfo">
+    <div class="panel panel-heading">
+      <%= params[:info] %>
+    </div>
+    <div class="panel panel-body" id="topics">
+      <%= render @topics %>
+      <% if @topics.next_page %>
+      <div id="infinite-scrolling" class="pull-right">
+        <%= will_paginate @topics %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+<style type="text/css">
+  .article-title{
+    font-size: 16px;
+  }
+</style>

@@ -1,0 +1,7 @@
+<%= simple_form_for([:wechat, @passage]) do |f| %>
+  <%= render "shared/error_messages", target: @passage %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :help %>
+  <%= f.submit class: "btn btn-primary btn-block" %>
+<%end%>

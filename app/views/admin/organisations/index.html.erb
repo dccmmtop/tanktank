@@ -1,0 +1,40 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.organisations")%></span>
+<% end %>
+<div class="toolbar">
+  <form class="form-inline" action="<%= admin_organisations_path %>">
+    <div class="form-group">
+      <input type="text" name="q" class="form-control" value="<%= params[:q] %>" placeholder="股票代码 ／ 公司名称" />
+    </div>
+    <button class="btn btn-default">搜索</button>
+  </form>
+</div>
+<div class="toolbar">
+  <%= link_to '新建机构', new_admin_organisation_path, class: "btn btn-default" %>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>股票代码</td>
+    <td>公司</td>
+    <td>公司全称</td>
+    <td>行业</td>
+    <td></td>
+  </tr>
+
+<% @organisations.each do |organisation| %>
+  <tr>
+    <td class="first"><%= organisation.id %></td>
+    <td><%= organisation.ticker %></td>
+    <td><%= organisation.name %></td>
+    <td><%= organisation.full_name %></td>
+    <td><%= organisation.industry %></td>
+    <td><%= link_to '', edit_admin_organisation_path(organisation), class: "fa fa-pencil" %>
+    <%= link_to '', admin_organisation_path(organisation), 'data-confirm' => 'Are you sure?' , method: :delete, class: "fa fa-trash" %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @organisations %>
+
+
